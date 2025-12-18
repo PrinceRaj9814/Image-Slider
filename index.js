@@ -1,24 +1,29 @@
+let index = 0;
 let slides = document.getElementById("slides");
-let slideIndex = 0;
-let totalSlides = slides.children.length;
-let slideWidth = 600; 
+let dots = document.querySelectorAll(".dot");
 
-function showSlide(index) {
-    if (index < 0) slideIndex = totalSlides - 1;
-    else if (index >= totalSlides) slideIndex = 0;
-    else slideIndex = index;
+function showSlide(i){
+    index = i;
 
-    slides.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+    if(index >= dots.length) index = 0;
+    if(index < 0) index = dots.length - 1;
+
+    slides.style.transform = `translateX(${-600 * index}px)`;
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[index].classList.add("active");
 }
 
-function nextSlide() {
-    showSlide(slideIndex + 1);
+function nextSlide(){
+    showSlide(index + 1);
 }
 
-function prevSlide() {
-    showSlide(slideIndex - 1);
+function prevSlide(){
+    showSlide(index - 1);
 }
 
-function goSlide(index) {
-    showSlide(index);
+function goSlide(i){
+    showSlide(i);
 }
+
+setInterval(nextSlide, 3000);
